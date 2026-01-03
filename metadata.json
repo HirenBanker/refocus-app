@@ -1,0 +1,7 @@
+{
+  "name": "Refocus",
+  "description": "A high-performance social media blocker UI for mobile and desktop, designed for deep focus and productivity. Includes custom scheduling, site management, and AI-powered focus tips.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
