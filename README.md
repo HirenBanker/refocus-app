@@ -1,32 +1,26 @@
 
-# 🚫 Refocus - Deployment Guide
+# 🚫 Refocus - Reclaim Your Time
 
-This app is built with **React**, **Vite**, and **Appwrite**. Because of Appwrite's security (CORS), it must be hosted on a stable domain like Vercel to function correctly with cloud sync.
+A high-performance focus tool designed to block distractions and improve productivity. 
 
-## 🚀 How to Host on Vercel (Free)
+## 🛡️ Local-First Privacy
+Refocus now operates in **Local Privacy Mode**. Your data (profile, site lists, and session history) is stored exclusively in your browser's local storage. No data is sent to a cloud server.
 
-### 1. Push to GitHub
-- Create a new repository on GitHub (e.g., `refocus-app`).
-- Upload all the files in this directory to that repository.
-- Ensure `package.json` and `vite.config.ts` are in the root folder.
+## 💾 Data Management (Admin Only)
+Admin users (Phone: `999`) have access to **Local Backup** tools in the Settings menu:
 
-### 2. Connect to Vercel
-- Go to [Vercel.com](https://vercel.com) and sign in with GitHub.
-- Click **"Add New"** > **"Project"**.
-- Import your `refocus-app` repository.
-- **Environment Variables:**
-  - Add `API_KEY`: (Your Google Gemini API Key)
-- Click **Deploy**.
+1. **Download Backup**: Saves your entire profile and configuration as a `.json` file to your PC.
+2. **Restore Backup**: Allows you to upload a previously saved `.json` file to restore your settings or transfer them to another device.
 
-### 3. Whitelist in Appwrite (CRITICAL)
-- Once Vercel finishes, it will give you a URL (e.g., `https://refocus-app.vercel.app`).
-- Copy this URL.
-- Go to your [Appwrite Console](https://cloud.appwrite.io).
-- Go to **Settings** > **Platforms**.
-- Click **Add Platform** > **Web App**.
-- Paste your Vercel URL into the **Hostname** field.
+## 🚀 Deployment
+This app can be hosted on any static hosting provider (Vercel, Netlify, GitHub Pages).
 
-## 🛠 Troubleshooting CORS
-If you still see "CORS ERROR" after deploying:
-1. Double check that the Hostname in Appwrite matches your Vercel URL exactly (no `https://` or trailing slashes).
-2. Ensure your Appwrite Collection permissions are set to **"Any"** for Create, Read, Update, and Delete during testing.
+### 1. Environment Variables
+Ensure you provide your Google Gemini API key:
+- `API_KEY`: Your Gemini API Key for focus tips.
+
+### 2. Build
+```bash
+npm install
+npm run build
+```
