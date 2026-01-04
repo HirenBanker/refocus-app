@@ -5,10 +5,12 @@ import { User } from '../types';
 interface HeaderProps {
   user: User;
   onOpenSettings: () => void;
-  syncStatus: { isSyncing: boolean, error: string | null };
+  syncStatus: { isLocal?: boolean };
 }
 
-const Header: React.FC<HeaderProps> = ({ user, onOpenSettings, syncStatus }) => {
+const Header: React.FC<HeaderProps> = ({ user, onOpenSettings }) => {
+  const isAdmin = user.phone === '999' || user.name.toLowerCase().includes('admin');
+
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -20,12 +22,9 @@ const Header: React.FC<HeaderProps> = ({ user, onOpenSettings, syncStatus }) => 
               className="w-10 h-10 rounded-full border-2 border-indigo-500 object-cover"
             />
             <div 
-              title={syncStatus.isSyncing ? "Cloud Sync Active" : "Local Mode - No Sync"}
-              className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white flex items-center justify-center text-[8px] ${
-                syncStatus.isSyncing ? 'bg-emerald-500' : 'bg-amber-500'
-              }`}
+              className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white flex items-center justify-center text-[8px] bg-indigo-500 text-white"
             >
-              {syncStatus.isSyncing ? '✓' : '!'}
+              ✓
             </div>
           </div>
           <div>
@@ -35,10 +34,12 @@ const Header: React.FC<HeaderProps> = ({ user, onOpenSettings, syncStatus }) => 
                 <span className="bg-indigo-100 text-indigo-600 text-[8px] px-1.5 py-0.5 rounded font-black uppercase">Admin</span>
               )}
             </div>
-            <p className="text-[10px] text-slate-500 flex items-center gap-1">
-              <span className={`w-1.5 h-1.5 rounded-full ${syncStatus.isSyncing ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}`}></span>
-              {syncStatus.isSyncing ? 'Synced with Appwrite' : 'Local Storage Mode'}
-            </p>
+            {isAdmin && (
+              <p className="text-[10px] text-slate-500 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                Local Privacy Mode
+              </p>
+            )}
           </div>
         </div>
 
